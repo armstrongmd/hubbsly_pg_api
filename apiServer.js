@@ -16,16 +16,16 @@ app.use(bodyParser.json());
 // parse requests of content-type = application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => res.json({ message: 'Hello Hubbsly' }));
+app.get('/', (req, res) => res.json({ message: 'Hello, welcome to Hubbsly' }));
 
 // connect to the db
 const db = require('./app/models');
 const { sequelize, Sequelize } = require('./app/models');
-db.sequelize.sync();
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log('Drop and re-sync db.');
-//   initial();
-// });
+//db.sequelize.sync();
+db.sequelize.sync({ force: true }).then(() => {
+  console.log('Drop and re-sync db.');
+  initial();
+});
 
 // test connection
 sequelize
@@ -59,7 +59,7 @@ const User = sequelize.define(
   }
 );
 
-User.sync({ force: true });
+//User.sync({ force: true });
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () =>

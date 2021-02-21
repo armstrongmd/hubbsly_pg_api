@@ -1,0 +1,26 @@
+{
+  "id": 1,
+  "name": "Grocery List",
+  "Items": {
+    "item 1": {
+      "id": 1,
+      "itemName": "soap",
+      "status": "active"
+    },
+    "item 2": {
+      "id": 2,
+      "itemName": "shampoo",
+      "status": "active"
+    },
+    "item 3": {
+      "id": 3,
+      "itemName": "toothpaste",
+      "status": "active"
+    },
+    "item 4": {
+      "id": 4,
+      "itemName": "lotion",
+      "status": "active"
+    }
+  }
+}
