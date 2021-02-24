@@ -8,7 +8,15 @@ module.exports = (sequelize, Sequelize) => {
     name: {
       type: Sequelize.TEXT,
     },
-    imageId: {},
+    imageId: {
+      type: Sequelize.TEXT,
+    },
+    isActive: {
+      type: Sequelize.BOOLEAN,
+    },
+    itemTags: {
+      type: Sequalize.JSONB,
+    },
   });
 
   return ShoppingListItem;
