@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
+app.use(helmet());
 
 var corsOptions = {
-  origin: 'http://localhost:8081',
+  origin: 'http://localhost:8081'
 };
 
 app.use(cors(corsOptions));
@@ -44,15 +46,15 @@ const User = sequelize.define(
     // attributes
     firstName: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     lastName: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
       // allowNull defaults to true
     },
     address: {
-      type: Sequelize.JSONB,
-    },
+      type: Sequelize.JSONB
+    }
   },
   {
     // options
@@ -76,8 +78,8 @@ function initial() {
       city: 'Bedrock',
       state: 'Stone Age America',
       zipCode: '88888',
-      county: 'Cobblestone County',
-    },
+      county: 'Cobblestone County'
+    }
   });
   User.create({
     id: 2,
@@ -88,8 +90,8 @@ function initial() {
       city: 'Bedrock',
       state: 'Stone Age America',
       zipCode: '88888',
-      county: 'Cobblestone County',
-    },
+      county: 'Cobblestone County'
+    }
   });
   User.create({
     id: 3,
@@ -100,8 +102,8 @@ function initial() {
       city: 'Bedrock',
       state: 'Stone Age America',
       zipCode: '88888',
-      county: 'Cobblestone County',
-    },
+      county: 'Cobblestone County'
+    }
   });
   User.create({
     id: 4,
@@ -112,7 +114,7 @@ function initial() {
       city: 'Bedrock',
       state: 'Stone Age America',
       zipCode: '88888',
-      county: 'Cobblestone County',
-    },
+      county: 'Cobblestone County'
+    }
   });
 }
