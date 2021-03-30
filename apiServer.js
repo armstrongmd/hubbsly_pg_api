@@ -1,3 +1,5 @@
+const startupDebugger = require('debug')('app:startup')
+const morgan = require('morgan')
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -6,6 +8,12 @@ const helmet = require('helmet');
 const app = express();
 app.use(helmet());
 
+if (app.get('env') === 'development') {
+  app.use(morgan('tiny'));
+  startupDebugger('Morgan enabled...')
+}
+
+// CORS
 var corsOptions = {
   origin: 'http://localhost:8081'
 };
@@ -18,11 +26,18 @@ app.use(bodyParser.json());
 // parse requests of content-type = application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => res.json({ message: 'Hello, welcome to Hubbsly' }));
+app.get('/', (req, res) =>
+  res.json({ message: 'Hello, welcome to the Hubbsly API' })
+);
+
+require('./app/routes/toDoItems.routes')(app);
 
 // connect to the db
 const db = require('./app/models');
 const { sequelize, Sequelize } = require('./app/models');
+//const toDoItemModel = require('./app/models/toDoItem.model');
+//const ToDoItem = db.toDoItems;
+
 //db.sequelize.sync();
 db.sequelize.sync({ force: true }).then(() => {
   console.log('Drop and re-sync db.');
@@ -62,6 +77,22 @@ const User = sequelize.define(
 );
 
 //User.sync({ force: true });
+
+// Temp ToDo Item
+const ToDoItem = sequelize.define('toDoItem', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  isActive: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  }
+});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () =>
@@ -116,5 +147,26 @@ function initial() {
       zipCode: '88888',
       county: 'Cobblestone County'
     }
+  });
+
+  ToDoItem.create({
+    id: 1,
+    name: 'Walk the Dog',
+    description: 'Walk the dog for 30 min.',
+    isActive: true
+  });
+
+  ToDoItem.create({
+    id: 2,
+    name: 'Pack up the bedroom',
+    description: 'Pack up the bedroom so that we can move on Friday.',
+    isActive: false
+  });
+
+  ToDoItem.create({
+    id: 3,
+    name: 'Run to the grocery store',
+    description: 'kentucky Bourbon Barrel Ale',
+    isActive: false
   });
 }

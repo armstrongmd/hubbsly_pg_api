@@ -1,4 +1,4 @@
-const { sequelize, sequelize, Sequelize } = require('.');
+const { sequelize, Sequelize } = require('.');
 
 module.exports = (sequelize, Sequelize) => {
   const ShoppingListItem = sequelize.define('shoppingListItem', {
@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
     },
     itemTags: {
-      type: Sequalize.JSONB,
+      type: Sequelize.JSONB,
     },
   });
 
